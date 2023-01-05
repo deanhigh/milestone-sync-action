@@ -1,0 +1,28 @@
+{
+  "name": "sample-action",
+  "version": "0.0.1",
+  "description": "",
+  "private": true,
+  "main": "lib/main.js",
+  "scripts": {
+    "build": "tsc",
+    "package": "ncc build --source-map --license licenses.txt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deanhigh/sample-action.git"
+  },
+  "bugs": {
+    "url": "https://github.com/deanhigh/sample-action/issues"
+  },
+  "homepage": "https://github.com/deanhigh/sample-action#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@vercel/ncc": "^0.36.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^5.1.1"
+  }
+}
