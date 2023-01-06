@@ -1,13 +1,13 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Multi-repo milestones.'
+description: 'Distribute the milestones from a repository to other repositories.'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  repositories:
+    description: 'Comma delimited list of repositories to synchronise.'
     required: true
-    default: 'World'
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  token:
+    description: 'Token with access to repositories you wish to sync'
+    required: true
+  
 runs:
   using: 'node16'
   main: 'dist/index.js'
