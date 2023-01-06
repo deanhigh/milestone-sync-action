@@ -8,7 +8,7 @@ async function run(): Promise<void> {
     const octokit = github.getOctokit(core.getInput('token'))
     const { data: milestone } = await octokit.rest.issues.createMilestone({
       ... github.context.repo,
-      title: 'test milestone'
+      title: 'test-milestone'
     });
     // Get the JSON webhook payload for the event that triggered the workflow
     // const payload = JSON.stringify(github.context.payload.issue, undefined, 2)

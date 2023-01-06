@@ -44,13 +44,13 @@ const github = __importStar(__nccwpck_require__(5438));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const nameToGreet = core.getInput('who-to-greet');
-            console.log(`Hello ${nameToGreet}!`);
-            const time = (new Date()).toTimeString();
-            core.setOutput("time", time);
+            const repositories = core.getInput('repositories');
+            console.log(`Syncnhronizing milestones to ${repositories}!`);
+            const octokit = github.getOctokit(core.getInput('token'));
+            const { data: milestone } = yield octokit.rest.issues.createMilestone(Object.assign(Object.assign({}, github.context.repo), { title: 'test-milestone' }));
             // Get the JSON webhook payload for the event that triggered the workflow
-            const payload = JSON.stringify(github.context.payload, undefined, 2);
-            console.log(`The event payload: ${payload}`);
+            // const payload = JSON.stringify(github.context.payload.issue, undefined, 2)
+            // console.log(`The event payload: ${payload}`);
         }
         catch (error) {
             if (error instanceof Error)
