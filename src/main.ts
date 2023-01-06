@@ -30,9 +30,9 @@ async function run(): Promise<void> {
       const { data: repoMilestones } = await octokit.rest.issues.listMilestones({
         ...github.context.repo
       });
-      console.log(`Milestones for ${repository.owner}/${repository.name}: ${repoMilestones}`);
+      console.log(`Milestones for ${repository.owner}/${repository.name}: ${JSON.stringify(repoMilestones, undefined, 2)}`);
     }
-    
+
     // const { data: milestone } = await octokit.rest.issues.createMilestone({
     //   ...github.context.repo,
     //   title: 'test-milestone'
