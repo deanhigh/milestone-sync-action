@@ -39,7 +39,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.parseRepositories = void 0;
+exports.getMilestoneUpdates = exports.parseRepositories = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
 const parseRepositories = (repositories) => {
@@ -47,31 +47,68 @@ const parseRepositories = (repositories) => {
         return [];
     const repos = repositories.split(",");
     return repos.map(value => {
-        const [owner, name] = value.split("/");
-        return { owner, name };
+        const [owner, repo] = value.split("/");
+        return { owner, repo };
     });
 };
 exports.parseRepositories = parseRepositories;
+const getMilestoneUpdates = (sourceMilestones, existingMilestones) => {
+    const combinedTitles = new Set([...sourceMilestones.map(m => m.title), ...existingMilestones.map(m => m.title)]);
+    let sourceMap = Object.assign({}, ...sourceMilestones.map((x) => ({ [x.title]: x })));
+    let existingMap = Object.assign({}, ...existingMilestones.map((x) => ({ [x.title]: x })));
+    let updateOperations = { create: [], update: [] };
+    combinedTitles.forEach(title => {
+        const existing = existingMap[title];
+        const source = sourceMap[title];
+        // We need to extract the data into new payload to avoid carrying through fields
+        const milestone = {
+            title
+        };
+        if (source === null || source === void 0 ? void 0 : source.description)
+            milestone.description = source.description;
+        if (source === null || source === void 0 ? void 0 : source.state)
+            milestone.state = source.state;
+        if (source === null || source === void 0 ? void 0 : source.due_on)
+            milestone.due_on = source.due_on;
+        if (source && existing &&
+            (existing.description !== source.description ||
+                existing.due_on !== source.due_on ||
+                existing.state !== source.state)) {
+            // If exists and something is different overwrite non-id fields and update
+            updateOperations.update.push(Object.assign({ milestone_number: existing.number }, milestone));
+        }
+        else if (source && !existing) {
+            updateOperations.create.push(milestone);
+        }
+    });
+    return updateOperations;
+};
+exports.getMilestoneUpdates = getMilestoneUpdates;
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const repositoriesInput = core.getInput('repositories');
             const repositories = (0, exports.parseRepositories)(repositoriesInput);
-            console.log(`Syncnhronizing milestones to ${repositories}!`);
+            console.log(`copying milestones from source ${JSON.stringify(github.context.repo)}!`);
             const octokit = github.getOctokit(core.getInput('token'));
             // Fetch current milestones.
-            const { data: milestones } = yield octokit.rest.issues.listMilestones(Object.assign({}, github.context.repo));
-            console.log(`Milestones in source: ${milestones}`);
+            const { data: sourceMilestones } = yield octokit.rest.issues.listMilestones(Object.assign({}, github.context.repo));
+            console.log(`milestones in source: ${sourceMilestones.map(m => m.title)}`);
             for (const repository of repositories) {
-                const { data: repoMilestones } = yield octokit.rest.issues.listMilestones(Object.assign({}, github.context.repo));
-                console.log(`Milestones for ${repository.owner}/${repository.name}: ${JSON.stringify(repoMilestones, undefined, 2)}`);
+                console.log(`fetching milestones from ${JSON.stringify(repository)}`);
+                const { data: repoMilestones } = yield octokit.rest.issues.listMilestones(Object.assign({}, repository));
+                const updateOps = (0, exports.getMilestoneUpdates)(sourceMilestones, repoMilestones);
+                for (const op of updateOps.create) {
+                    const req = Object.assign(Object.assign({}, repository), op);
+                    console.log(`create operation: ${JSON.stringify(req)}`);
+                    yield octokit.rest.issues.createMilestone(req);
+                }
+                for (const op of updateOps.update) {
+                    const req = Object.assign(Object.assign({}, repository), op);
+                    console.log(`update operation: ${JSON.stringify(req)}`);
+                    yield octokit.rest.issues.updateMilestone(req);
+                }
             }
-            // const { data: milestone } = await octokit.rest.issues.createMilestone({
-            //   ...github.context.repo,
-            //   title: 'test-milestone'
-            // });
-            // Get the JSON webhook payload for the event that triggered the workflow
-            // const payload = JSON.stringify(github.context.payload.issue, undefined, 2)
         }
         catch (error) {
             if (error instanceof Error)

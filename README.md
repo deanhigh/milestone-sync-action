@@ -1,23 +1,27 @@
-# Hello world javascript action
+# milestone-sync
 
-This action prints "Hello World" or "Hello" + the name of a person to greet to the log.
+This action copies milestones across repositories using the repository it is run in as a source.
+
+The token provided must be a PAT with write to all the relevant repositories.
 
 ## Inputs
 
-### `who-to-greet`
+### `repositories`
 
-**Required** The name of the person to greet. Default `"World"`.
+**Required** Comma delimited list of repositories to copy to.
+
+### `token`
+
+**Required** Comma delimited list of repositories to copy to.
 
 ## Outputs
 
-### `time`
-
-The time we greeted you.
+None at this point
 
 ## Example usage
 
 ```yaml
-uses: actions/hello-world-javascript-action@v1.1
+uses: actions/milestone-sync@v1.1
 with:
-  who-to-greet: 'Mona the Octocat'
+  repositories: 'owner/reponame-to-copy-to,org/org-repo-to-copy-to'
 ```
