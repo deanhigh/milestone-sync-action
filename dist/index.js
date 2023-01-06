@@ -47,10 +47,13 @@ function run() {
             const repositories = core.getInput('repositories');
             console.log(`Syncnhronizing milestones to ${repositories}!`);
             const octokit = github.getOctokit(core.getInput('token'));
+            // Fetch current milestones.
+            const { data: milestones } = yield octokit.rest.issues.listMilestones(Object.assign({}, github.context.repo));
+            console.log(milestones);
             const { data: milestone } = yield octokit.rest.issues.createMilestone(Object.assign(Object.assign({}, github.context.repo), { title: 'test-milestone' }));
             // Get the JSON webhook payload for the event that triggered the workflow
             // const payload = JSON.stringify(github.context.payload.issue, undefined, 2)
-            // console.log(`The event payload: ${payload}`);
+            console.log(`The event payload: ${milestone}`);
         }
         catch (error) {
             if (error instanceof Error)

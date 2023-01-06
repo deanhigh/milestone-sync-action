@@ -17,6 +17,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Set Node.js 16.x
         uses: actions/setup-node@v3.5.1
@@ -46,3 +48,9 @@ jobs:
         with:
           name: dist
           path: dist/
+    
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+    
