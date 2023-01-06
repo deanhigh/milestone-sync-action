@@ -39,21 +39,39 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.parseRepositories = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
+const parseRepositories = (repositories) => {
+    if (!repositories)
+        return [];
+    const repos = repositories.split(",");
+    return repos.map(value => {
+        const [owner, name] = value.split("/");
+        return { owner, name };
+    });
+};
+exports.parseRepositories = parseRepositories;
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const repositories = core.getInput('repositories');
+            const repositoriesInput = core.getInput('repositories');
+            const repositories = (0, exports.parseRepositories)(repositoriesInput);
             console.log(`Syncnhronizing milestones to ${repositories}!`);
             const octokit = github.getOctokit(core.getInput('token'));
             // Fetch current milestones.
             const { data: milestones } = yield octokit.rest.issues.listMilestones(Object.assign({}, github.context.repo));
-            console.log(milestones);
-            const { data: milestone } = yield octokit.rest.issues.createMilestone(Object.assign(Object.assign({}, github.context.repo), { title: 'test-milestone' }));
+            console.log(`Milestones in source: ${milestones}`);
+            for (const repository of repositories) {
+                const { data: repoMilestones } = yield octokit.rest.issues.listMilestones(Object.assign({}, github.context.repo));
+                console.log(`Milestones for ${repository.owner}/${repository.name}: ${repoMilestones}`);
+            }
+            // const { data: milestone } = await octokit.rest.issues.createMilestone({
+            //   ...github.context.repo,
+            //   title: 'test-milestone'
+            // });
             // Get the JSON webhook payload for the event that triggered the workflow
             // const payload = JSON.stringify(github.context.payload.issue, undefined, 2)
-            console.log(`The event payload: ${milestone}`);
         }
         catch (error) {
             if (error instanceof Error)
