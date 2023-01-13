@@ -1,3 +1,3 @@
-import {milestonePush} from "./common"
+import { milestonePush } from "./common";
 
-milestonePush()
+void milestonePush();

@@ -46,23 +46,26 @@ const parseRepositories = (repositories) => {
     if (!repositories)
         return [];
     const repos = repositories.split(",");
-    return repos.map(value => {
+    return repos.map((value) => {
         const [owner, repo] = value.split("/");
         return { owner, repo };
     });
 };
 exports.parseRepositories = parseRepositories;
 const getMilestoneUpdates = (sourceMilestones, existingMilestones) => {
-    const combinedTitles = new Set([...sourceMilestones.map(m => m.title), ...existingMilestones.map(m => m.title)]);
-    let sourceMap = Object.assign({}, ...sourceMilestones.map((x) => ({ [x.title]: x })));
-    let existingMap = Object.assign({}, ...existingMilestones.map((x) => ({ [x.title]: x })));
-    let updateOperations = { create: [], update: [] };
-    combinedTitles.forEach(title => {
+    const combinedTitles = new Set([
+        ...sourceMilestones.map((m) => m.title),
+        ...existingMilestones.map((m) => m.title),
+    ]);
+    const sourceMap = Object.assign({}, ...sourceMilestones.map((x) => ({ [x.title]: x })));
+    const existingMap = Object.assign({}, ...existingMilestones.map((x) => ({ [x.title]: x })));
+    const updateOperations = { create: [], update: [] };
+    for (const title of combinedTitles) {
         const existing = existingMap[title];
         const source = sourceMap[title];
         // We need to extract the data into new payload to avoid carrying through fields
         const milestone = {
-            title
+            title,
         };
         if (source === null || source === void 0 ? void 0 : source.description)
             milestone.description = source.description;
@@ -70,7 +73,8 @@ const getMilestoneUpdates = (sourceMilestones, existingMilestones) => {
             milestone.state = source.state;
         if (source === null || source === void 0 ? void 0 : source.due_on)
             milestone.due_on = source.due_on;
-        if (source && existing &&
+        if (source &&
+            existing &&
             (existing.description !== source.description ||
                 existing.due_on !== source.due_on ||
                 existing.state !== source.state)) {
@@ -80,20 +84,20 @@ const getMilestoneUpdates = (sourceMilestones, existingMilestones) => {
         else if (source && !existing) {
             updateOperations.create.push(milestone);
         }
-    });
+    }
     return updateOperations;
 };
 exports.getMilestoneUpdates = getMilestoneUpdates;
 function milestonePush() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const repositoriesInput = core.getInput('repositories');
+            const repositoriesInput = core.getInput("repositories");
             const repositories = (0, exports.parseRepositories)(repositoriesInput);
             console.log(`copying milestones from source ${JSON.stringify(github.context.repo)}!`);
-            const octokit = github.getOctokit(core.getInput('token'));
+            const octokit = github.getOctokit(core.getInput("token"));
             // Fetch current milestones.
             const { data: sourceMilestones } = yield octokit.rest.issues.listMilestones(Object.assign({}, github.context.repo));
-            console.log(`milestones in source: ${sourceMilestones.map(m => m.title)}`);
+            console.log(`milestones in source: ${sourceMilestones.map((m) => m.title)}`);
             for (const repository of repositories) {
                 console.log(`fetching milestones from ${JSON.stringify(repository)}`);
                 const { data: repoMilestones } = yield octokit.rest.issues.listMilestones(Object.assign({}, repository));
@@ -9809,7 +9813,7 @@ var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const common_1 = __nccwpck_require__(6979);
-(0, common_1.milestonePush)();
+void (0, common_1.milestonePush)();
 
 })();
 
