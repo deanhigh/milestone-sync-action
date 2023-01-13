@@ -1,6 +1,5 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import { sortAndDeduplicateDiagnostics } from 'typescript';
 
 
 export const parseRepositories = (repositories: string): { repo: string, owner: string }[] => {
@@ -29,8 +28,6 @@ type MilestoneCreate = {
 type MilestoneUpdate = {
   milestone_number: number;
 } & MilestoneCreate;
-
-
 
 
 export const getMilestoneUpdates = (sourceMilestones: Milestone[], existingMilestones: Milestone[]): { create: MilestoneCreate[], update: MilestoneUpdate[] } => {
@@ -67,7 +64,7 @@ export const getMilestoneUpdates = (sourceMilestones: Milestone[], existingMiles
   return updateOperations
 }
 
-async function run(): Promise<void> {
+export async function milestonePush(): Promise<void> {
   try {
     const repositoriesInput = core.getInput('repositories');
     const repositories = parseRepositories(repositoriesInput);
@@ -115,5 +112,3 @@ async function run(): Promise<void> {
   }
 }
 
-
-run()

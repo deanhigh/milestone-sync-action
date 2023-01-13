@@ -1,7 +1,7 @@
 
 
 import { describe, expect, test } from '@jest/globals';
-import { getMilestoneUpdates, parseRepositories } from "../src/main"
+import { getMilestoneUpdates, parseRepositories } from "../src/common"
 describe("input parsing", () => {
   test("parse repositories input", () => {
     const repos = parseRepositories("owner/repo1,owner/repo2")
