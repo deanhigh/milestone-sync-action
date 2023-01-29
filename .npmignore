@@ -8,3 +8,5 @@ node_modules/
 .vnmrc
 
 .prettier
+
+__tests__
