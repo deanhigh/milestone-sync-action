@@ -1,3 +1,10 @@
+## [0.1.3](https://github.com/deanhigh/mr-tools-lib/compare/v0.1.2...v0.1.3) (2023-01-29)
+
+
+### Bug Fixes
+
+* create index facade for library ([f2c8a39](https://github.com/deanhigh/mr-tools-lib/commit/f2c8a39f330564528816f57180a0617b25fac929))
+
 ## [0.1.2](https://github.com/deanhigh/mr-tools-lib/compare/v0.1.1...v0.1.2) (2023-01-29)
 
 
