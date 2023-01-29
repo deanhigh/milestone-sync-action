@@ -1,3 +1,10 @@
+## [0.1.6](https://github.com/deanhigh/mr-tools-lib/compare/v0.1.5...v0.1.6) (2023-01-29)
+
+
+### Bug Fixes
+
+* remove tests from package ([31f063a](https://github.com/deanhigh/mr-tools-lib/commit/31f063a495fd92313bd2cad0daafa65745f2e8f7))
+
 ## [0.1.5](https://github.com/deanhigh/mr-tools-lib/compare/v0.1.4...v0.1.5) (2023-01-29)
 
 
