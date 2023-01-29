@@ -1,3 +1,10 @@
+## [0.1.4](https://github.com/deanhigh/mr-tools-lib/compare/v0.1.3...v0.1.4) (2023-01-29)
+
+
+### Bug Fixes
+
+* jest config in the package.json ([e2655ec](https://github.com/deanhigh/mr-tools-lib/commit/e2655ecb52c0eb0d5f03c76193cb0ef071aa35df))
+
 ## [0.1.3](https://github.com/deanhigh/mr-tools-lib/compare/v0.1.2...v0.1.3) (2023-01-29)
 
 
