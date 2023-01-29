@@ -1,3 +1,10 @@
+## [0.1.7](https://github.com/deanhigh/mr-tools-lib/compare/v0.1.6...v0.1.7) (2023-01-29)
+
+
+### Bug Fixes
+
+* remove module ([4057130](https://github.com/deanhigh/mr-tools-lib/commit/40571309ebaa4ac921f7f9cec3d151c2754709f6))
+
 ## [0.1.6](https://github.com/deanhigh/mr-tools-lib/compare/v0.1.5...v0.1.6) (2023-01-29)
 
 
