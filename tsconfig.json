@@ -2,8 +2,10 @@
     "compilerOptions": {
       "target": "ES2022",                      
       "module": "commonjs",                    
-      "outDir": "./lib",                       
-      "strict": true,                          
+      "outDir": "./lib", 
+      "declaration": true,                      
+      "strict": true, 
+      "baseUrl": "./src",                         
       "noImplicitAny": true,        
       "forceConsistentCasingInFileNames": true,           
       "esModuleInterop": true               
