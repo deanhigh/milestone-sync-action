@@ -1,14 +1,7 @@
 
 
 import { describe, expect, test } from '@jest/globals';
-import { getMilestoneUpdates, parseRepositories } from "../src/common"
-describe("input parsing", () => {
-  test("parse repositories input", () => {
-    const repos = parseRepositories("owner/repo1,owner/repo2")
-    expect(repos[0]).toStrictEqual({ "repo": "repo1", "owner": "owner" })
-    expect(repos[1]).toStrictEqual({ "repo": "repo2", "owner": "owner" })
-  });
-});
+import { getMilestoneUpdates } from "../src/milestones"
 
 describe("updates", () => {
   test("get milestone single update, nothing new ", () => {

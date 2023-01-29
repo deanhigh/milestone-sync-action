@@ -1,18 +1,15 @@
-name: Validation
+name: Release 
 
 on:
   push:
     branches:
-      - next
-    paths-ignore:
-      - '**.md'
-  pull_request:
+      - main
     paths-ignore:
       - '**.md'
   workflow_dispatch:
 
 jobs:
-  validate-job:
+  release-job:
     runs-on: ubuntu-latest
     
     steps:
@@ -39,3 +36,7 @@ jobs:
       - name: Test
         run: |
           npm test
+    
+      - run: yarn semantic-release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
