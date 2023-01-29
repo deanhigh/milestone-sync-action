@@ -1,3 +1,10 @@
+## [0.1.5](https://github.com/deanhigh/mr-tools-lib/compare/v0.1.4...v0.1.5) (2023-01-29)
+
+
+### Bug Fixes
+
+* .npmignore added ([9911a64](https://github.com/deanhigh/mr-tools-lib/commit/9911a648075f10172fb2b8bda8c05502ca7f7049))
+
 ## [0.1.4](https://github.com/deanhigh/mr-tools-lib/compare/v0.1.3...v0.1.4) (2023-01-29)
 
 
