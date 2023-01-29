@@ -1,64 +1,10 @@
-# Multi-repo project actions.
+# Multirepo tools
 
-This action copies milestones across repositories using the repository it is run in as a source.
+A series of tools to aid in managing process around multirepo projects.
 
-> The token provided must be a PAT with relevant access to all the relevant repositories. (TBD)
+I have found that personally I prefer having multiple repositories but much of the tooling out there doesn't play well in a multirepo setting. I've created this small set of tools to help mitigate some shortcomings. It is likely that in the future these tools will become redundant as platforms continue to evolve, so the tools will remain small and simple (hopefully.)
 
-## milestone-push
+## Linked actions
 
-Push milestones from a source repository to configured sink repositories.
+- [Milestone Push](https://github.com/deanhigh/mr-tools-milestone-push-action): Distribute milestones across repos
 
-### Inputs
-
-#### `repositories`
-
-**Required** Comma delimited list of repositories to copy to.
-
-#### `token`
-
-**Required** Comma delimited list of repositories to copy to.
-
-### Outputs
-
-None at this point
-
-### Example usage
-
-```yaml
-uses: actions/milestone-sync@v1.1
-with:
-  repositories: 'owner/reponame-to-copy-to,org/org-repo-to-copy-to'
-```
-
-## label-push
-
-Push milestones from a source repository to configured sink repositories.
-
-### Inputs
-
-#### `repositories`
-
-**Required** Comma delimited list of repositories to copy to.
-
-#### `token`
-
-**Required** Comma delimited list of repositories to copy to.
-
-### Outputs
-
-None at this point
-
-### Example usage
-
-```yaml
-uses: actions/milestone-sync@v1.1
-with:
-  repositories: 'owner/reponame-to-copy-to,org/org-repo-to-copy-to'
-```
-
-## Token Access
-
-When creating a token assign it the relevant access across all the repositories it will be accessing. See below for list of grants:
-
-- TBD
-- TBD

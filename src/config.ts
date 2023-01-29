@@ -1,6 +1,6 @@
-import * as fs from "fs";
+import { readFileSync } from "fs";
 
-import * as yaml from "js-yaml";
+import { load } from "js-yaml";
 
 export interface Config {
   repositories?: Array<{
@@ -10,5 +10,5 @@ export interface Config {
 }
 
 export const readConfig = (configFile: string) => {
-  return yaml.load(fs.readFileSync(configFile, "utf8")) as Config;
+  return load(readFileSync(configFile, "utf8")) as Config;
 };
