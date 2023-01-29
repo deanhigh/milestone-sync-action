@@ -1,3 +1,10 @@
+## [0.1.1](https://github.com/deanhigh/mr-tools-lib/compare/v0.1.0...v0.1.1) (2023-01-29)
+
+
+### Bug Fixes
+
+* release to public npm registry ([ed02eaf](https://github.com/deanhigh/mr-tools-lib/commit/ed02eafad4b9547b2f29ce74a9e46bffe22c01dd))
+
 # [0.1.0](https://github.com/deanhigh/mr-tools-lib/compare/v0.0.6...v0.1.0) (2023-01-29)
 
 
