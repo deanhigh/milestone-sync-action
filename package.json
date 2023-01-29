@@ -4,6 +4,7 @@
   "private": false,
   "license": "MIT",
   "type": "module",
+  "main": "lib/src/index.js",
   "scripts": {
     "build": "tsc --build",
     "test": "jest",
