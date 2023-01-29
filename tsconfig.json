@@ -1,15 +1,10 @@
 {
     "compilerOptions": {
-      "target": "ES2022",                      
+      "target": "ES2015",                      
       "module": "commonjs",                    
       "outDir": "./lib", 
-      "declaration": true,                      
-      "strict": true, 
-      "baseUrl": "./src",                         
-      "noImplicitAny": true,        
-      "forceConsistentCasingInFileNames": true,           
-      "esModuleInterop": true               
+      "declaration": true,               
     },
-    "exclude": ["node_modules", "lib", "__tests__", "**/*.test.ts"]
+    "include": ["src/**/*"]
     
   }
