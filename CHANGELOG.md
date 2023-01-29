@@ -1,3 +1,10 @@
+## [0.1.2](https://github.com/deanhigh/mr-tools-lib/compare/v0.1.1...v0.1.2) (2023-01-29)
+
+
+### Bug Fixes
+
+* update checkout ([e7df7d0](https://github.com/deanhigh/mr-tools-lib/commit/e7df7d0607f5d0be7331d78db36d3ea10dacc0a7))
+
 ## [0.1.1](https://github.com/deanhigh/mr-tools-lib/compare/v0.1.0...v0.1.1) (2023-01-29)
 
 
